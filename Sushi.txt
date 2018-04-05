@@ -1,0 +1,36 @@
+P(ts) la probabilité d’un type de sushi : la proportion de menus de restaurants dans lesquels ts est proposé parmi les 25 observés.
+Retenus 100 plus courants, nommés X^* (X^B in Readme).
+X^A subset X^* : 10 ts populaires.
+Chaque utilisateur ordonne X^A, noté O^A_i.
+X^B_i : 10 ts pris au hasard selon P.
+Chaque utilisateur score X^B_i de 1 et 5, noté S^B_i, et (après deux questions “de diversion” “how oily” et “how frequently”) ordonne X^B_i, noté O^B_i.
+1039 réponses (par internet), filtrées (temps de réponse trop court ou trop long), retenus 1025 triplets (O^A_i, O^B_i, S^B_i).
+
+Réponses tq existe x^a > x^b dans O^B_i mais x^b > x^a dans S^B_i : 70%.
+
+IDs for X^A [[0, 9]]; do not match 100 IDs of X^*.
+
+Files
+space separated
+
+sushi3a.5000.10.order and sushi3b.5000.10.order
+first number is |X^A| = 10 or |X^*| = 100. Then 1, not explained.
+each line in body: 0, not explained, then 10 = |O^A_i| = |O^B_i|, then the ten item ids, most preferred first. The line number refers to the corresponding line in sushi3.udata
+
+sushi3b.5000.10.score
+matrix style data separated by <sp>
+each row corresponds to the user in the corresponding line of the file sushi3.udata
+each column corresponds to the SUSHI in the item set B
+using five-point-scale, 0:the most disliked, 4:the most preferred, -1:not rated
+
+Sushi-data: I checked that major group is redundant
+Users-data: I checked that the column "Whether features "prefecture ID" are different" is redundant
+
+Objective: Exploit ratings and multiple users AND individual orderings
+Rationale: orderings can be obtained passively
+Technically: constrain filtering to order correctly
+
+1. Minimiser classiquement (slmt U et V), puis expliquer en trouvant des fonctions f et g
+2. Minimiser avec le triple loss L0, L1, L2
+3. Minimiser avec des loss qui intègrent la capacité du modèle à bien classer.
+
