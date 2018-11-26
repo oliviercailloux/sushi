@@ -5,9 +5,9 @@ from sklearn.model_selection import train_test_split
 
 
 NB_USERS = 5000
-FEAT_USER = 1
+FEAT_USER = 3
 NB_ITEMS = 100
-FEAT_ITEM = 4
+FEAT_ITEM = 6
 
 NB_EPOCHS = 500
 LAMBDA_REG = 1e-5
@@ -27,8 +27,8 @@ df_ratings = pd.DataFrame(triplets, columns=('user', 'item', 'rating'))
 train, test = train_test_split(df_ratings, test_size=0.2, shuffle=True)
 
 # TF
-A = tf.constant(np.array(users[['age']]).astype(np.float32))
-B = tf.constant(np.array(items[['heaviness', 'frequency', 'price', 'popularity']]).astype(np.float32))
+A = tf.constant(np.array(users[['age', 'gender', 'region']]).astype(np.float32))
+B = tf.constant(np.array(items[['heaviness', 'frequency', 'price', 'popularity', 'style', 'major']]).astype(np.float32))
 
 W_V = tf.get_variable('W_V', shape=[NB_ITEMS, FEAT_USER], dtype=np.float32, initializer=tf.truncated_normal_initializer(stddev=1))
 W_U = tf.get_variable('W_U', shape=[NB_USERS, FEAT_ITEM], dtype=np.float32, initializer=tf.truncated_normal_initializer(stddev=1))
